@@ -52,7 +52,9 @@ async function fetchImages() {
       totalPages = Math.ceil(totalHits / perPage);
 
       if (data.totalHits !== 0) {
-        Notiflix.Notify.success(`"Hooray! We found ${data.totalHits} images."`);
+        Notiflix.Notify.success(
+          `"Ура! Мы нашли ${data.totalHits} изображений."`
+        );
       }
 
       data.hits.forEach(image => {
@@ -74,6 +76,12 @@ async function fetchImages() {
         loadMoreButton.style.display = 'block';
       } else {
         loadMoreButton.style.display = 'none';
+      }
+      if (page >= totalPages) {
+        allPagesLoaded = true;
+        Notiflix.Notify.failure(
+          'Сожалеем, но вы достигли конца результатов поиска.'
+        );
       }
     }
   } catch (error) {
