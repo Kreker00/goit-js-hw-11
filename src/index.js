@@ -51,18 +51,22 @@ async function fetchImages() {
       totalHits = data.totalHits;
       totalPages = Math.ceil(totalHits / perPage);
 
+      if (data.totalHits !== 0) {
+        Notiflix.Notify.success(`"Hooray! We found ${data.totalHits} images."`);
+      }
+
       data.hits.forEach(image => {
         const card = document.createElement('div');
         card.classList.add('photo-card');
         card.innerHTML = `
-                    <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
-                    <div class="info">
-                        <p class="info-item"><b>Лайки:</b> ${image.likes}</p>
-                        <p class="info-item"><b>Перегляди:</b> ${image.views}</p>
-                        <p class="info-item"><b>Коментарі:</b> ${image.comments}</p>
-                        <p class="info-item"><b>Завантаження:</b> ${image.downloads}</p>
-                    </div>
-                `;
+        <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
+        <div class="info">
+        <p class="info-item"><b>Лайки:</b> ${image.likes}</p>
+        <p class="info-item"><b>Перегляди:</b> ${image.views}</p>
+        <p class="info-item"><b>Коментарі:</b> ${image.comments}</p>
+        <p class="info-item"><b>Завантаження:</b> ${image.downloads}</p>
+        </div>
+        `;
         gallery.appendChild(card);
       });
 
